@@ -9,14 +9,15 @@ snake[0] = {
 }
 
 let direction = 'right';
-let food = {
-    x: Math.floor(Math.random() * 39 + 1) * box,
-    y: Math.floor(Math.random() * 39 + 1) * box
-}
 
 function createBox() {
   context.fillStyle = '#131313'
   context.fillRect(0, 0, 40 * box, 40 * box)
+}
+
+let food = {
+    x: Math.floor(Math.random() * 39 + 1) * box,
+    y: Math.floor(Math.random() * 39 + 1) * box
 }
 
 function createSnake() {
@@ -91,4 +92,4 @@ snake.unshift(newHead);
 
 }
 
-let game = setInterval(playGame, 150)
+let game = setInterval(playGame, 50)
