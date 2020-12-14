@@ -1,23 +1,22 @@
 let canvas = document.getElementById('snake')
 let context = canvas.getContext('2d')
-let box = 10
+let box = 32
 
 let snake = []
 snake[0] = {
-  x: 10 * box,
-  y: 10 * box
+  x: 8 * box,
+  y: 8 * box
 }
 
 let direction = 'right';
+let food = {
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
 
 function createBox() {
   context.fillStyle = '#131313'
-  context.fillRect(0, 0, 40 * box, 40 * box)
-}
-
-let food = {
-    x: Math.floor(Math.random() * 39 + 1) * box,
-    y: Math.floor(Math.random() * 39 + 1) * box
+  context.fillRect(0, 0, 16 * box, 16 * box)
 }
 
 function createSnake() {
@@ -41,29 +40,19 @@ function update(e) {
   if(e.keyCode == 40 && direction !== 'up') direction = 'down'
 }
 
-const upTouch = document.querySelector(".tecla[id=uptouch]");
-const dwTouch = document.querySelector(".tecla[id=dwtouch]");
-const lfTouch = document.querySelector(".tecla[id=lftouch]");
-const rgTouch = document.querySelector(".tecla[id=rgtouch]");
-
-upTouch.addEventListener("click", () => {if (direction != "down") direction = "up"});
-dwTouch.addEventListener("click", () => {if (direction != "up") direction = "down"});
-lfTouch.addEventListener("click", () => {if (direction != "right") direction = "left"});
-rgTouch.addEventListener("click", () => {if (direction != "left") direction = "right"});
-
 function playGame() {
-  if(snake[0].x > 39 * box && direction == 'right') snake[0].x = 0
-  if(snake[0].x < 0 && direction == 'left') snake[0].x = 16 * box 
-  if(snake[0].y > 39 * box && direction == 'down') snake[0].y = 0
-  if(snake[0].y < 0 && direction == 'up') snake[0].y = 16 * box
-  
+  if(snake[0].x > 14.9 * box && direction == 'right') snake[0].x = 0
+  if(snake[0].x < 0.5 && direction == 'left') snake[0].x = 16 * box 
+  if(snake[0].y > 14.9 * box && direction == 'down') snake[0].y = 0
+  if(snake[0].y < 0.5 && direction == 'up') snake[0].y = 16 * box
+
   for(i = 1; i < snake.length; i++) {
     if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
       clearInterval(game)
       alert('Game Over ... Try again!! =D')
     }
   }
-  
+
   createBox()
   createSnake()
   drawFood()
@@ -79,8 +68,8 @@ function playGame() {
   if(snakeX != food.x || snakeY != food.y) {
     snake.pop(); //pop tira o último elemento da lista
   } else {
-    food.x = Math.floor(Math.random() * 39 +1) * box;
-    food.y = Math.floor(Math.random() * 39 +1) * box;
+    food.x = Math.floor(Math.random() * 15 +1) * box;
+    food.y = Math.floor(Math.random() * 15 +1) * box;
 }
 
   let newHead = {
@@ -92,4 +81,4 @@ snake.unshift(newHead);
 
 }
 
-let game = setInterval(playGame, 50)
+let game = setInterval(playGame, 150)
